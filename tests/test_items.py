@@ -28,6 +28,7 @@ def test_coordinate_convert(map_item):
     assert np.allclose(xy, old_xy)
 
 
+@pytest.mark.skip(reason='No access to data')
 def test_load_image(map_item, drc):
     img = map_item.load_image(drc.parent / 'data')
 
