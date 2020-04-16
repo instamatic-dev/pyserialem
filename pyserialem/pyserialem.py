@@ -362,11 +362,12 @@ class MapItem(NavItem):
 
     GROUP_ID_ITERATOR = random.randint(1, 90000)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, data_drc: str = '.', **kwargs):
         super().__init__(*args, **kwargs)
 
         self.validate()
         self.markers = {}
+        self.data_drc = data_drc
 
     @property
     def stagematrix(self) -> 'np.array':
@@ -407,7 +408,7 @@ class MapItem(NavItem):
         import mrcfile
 
         if not drc:
-            drc = '.'
+            drc = self.data_drc
         drc = Path(drc)
 
         map_file = Path(self.MapFile)
@@ -421,7 +422,7 @@ class MapItem(NavItem):
         else:
             return np.array(m.data[s])
 
-    def plot_image(self, markers: bool = True) -> None:
+    def plot_image(self, markers: bool = True, drc: str = None) -> None:
         """Plot the image including markers (optional)"""
         import matplotlib.pyplot as plt
 
@@ -692,14 +693,14 @@ def block2dict(block: list, kind: str = None, sequence: int = -1) -> dict:
     return d
 
 
-def block2nav(block: list, tag=None) -> 'NavItem':
+def block2nav(block: list, tag: str = None, data_drc: str = None) -> 'NavItem':
     """Takes a text block from a SerialEM .nav file and converts it into a
     instance of `NavItem` or `MapItem`"""
     d = block2dict(block)
     kind = d['Type']
 
     if kind == 2:
-        ret = MapItem(d, tag=tag)
+        ret = MapItem(d, tag=tag, data_drc=data_drc)
     else:
         ret = NavItem(d, tag=tag)
 
@@ -721,6 +722,7 @@ def read_nav_file(fn: str, acquire_only: bool = False) -> list:
     block = []
     items = []
     tag = ''
+    drc = Path(fn.absolute().parent)
 
     f = open(fn, 'r')
     for line in f:
@@ -732,7 +734,7 @@ def read_nav_file(fn: str, acquire_only: bool = False) -> list:
 
         if m:
             if block:
-                items.append(block2nav(block, tag=tag))
+                items.append(block2nav(block, tag=tag, data_drc=drc))
 
             # prep for next block
             tag = m.groups()[0]
@@ -748,7 +750,7 @@ def read_nav_file(fn: str, acquire_only: bool = False) -> list:
             else:
                 print(line)
 
-    items.append(block2nav(block, tag=tag))
+    items.append(block2nav(block, tag=tag, data_drc=drc))
 
     if acquire_only:
         items = [item for item in items if item.Acquire]
