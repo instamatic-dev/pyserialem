@@ -1,0 +1,58 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+    -   id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-docstring-first
+    -   id: check-builtin-literals
+    -   id: check-ast
+    -   id: check-merge-conflict
+    -   id: debug-statements
+    -   id: double-quote-string-fixer
+    # -   id: check-json
+    # -   id: check-added-large-files
+-   repo: https://github.com/myint/docformatter
+    rev: v1.3.1
+    hooks:
+    -   id: docformatter
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v1.8.0
+    hooks:
+    -   id: reorder-python-imports
+        args: [--py3-plus]
+-   repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v1.4.4  # Use the sha / tag you want to point at
+    hooks:
+    -   id: autopep8
+        args: ['--in-place', '--ignore=E501,W504']
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v1.25.2
+    hooks:
+    -   id: pyupgrade
+        args: ['--py36-plus']
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.9
+    hooks:
+    -   id: flake8
+        args: ['--statistics', '--ignore=F401,F403,F405,F821,F841,E265,E501,A003']
+        additional_dependencies: [
+          'flake8-blind-except',
+          'flake8-commas',
+          'flake8-comprehensions',
+          'flake8-deprecated',
+          'flake8-mutable',
+          'flake8-quotes',
+          'flake8-tidy-imports',
+          'flake8-type-annotations',
+          'flake8-builtins',
+          ]
+- repo: https://github.com/kynan/nbstripout
+  rev: master
+  hooks:
+    - id: nbstripout
+      files: ".ipynb"
