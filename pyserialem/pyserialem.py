@@ -8,6 +8,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import patches
 
+__all__ = [
+    'bin_ndarray',
+    'stitch_map_items',
+    'NavItem',
+    'MapItem',
+    'block2dict',
+    'block2nav',
+    'read_nav_file',
+    'write_nav_file',
+    'read_mdoc_file',
+]
 
 # int
 INTEGER = ('Color', 'NumPts', 'Draw', 'Regis',
@@ -553,7 +564,7 @@ class MapItem(NavItem):
         self.markers = {}
         self.update_markers(*items)
 
-    def markers_as_pixels_coordinates(self):
+    def markers_as_pixel_coordinates(self):
         """Return markers as (Mx2) array of pixel xy coordinates."""
         try:
             return np.array([marker.pixel_coord for marker in self.markers.values()])
