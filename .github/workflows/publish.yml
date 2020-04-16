@@ -1,0 +1,30 @@
+name: publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    matrix:
+      python-version: [ 3.6, 3.7, 3.8 ]
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+        architecture: x64
+
+    - name: Install with poetry
+      run: |
+        pip install poetry==1.0.5
+
+    - name: Build with poetry
+      run: poetry build
+
+    - name: Publish with poetry
+      run: |
+        poetry publish -u ${{ secrets.pypi_user }} -p ${{ secrets.pypi_pw }}
