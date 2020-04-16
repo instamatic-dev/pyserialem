@@ -195,7 +195,10 @@ def stitch_map_items(items: list,
 
     fig, ax = plt.subplots()
 
-    tag_min = min(int(item.tag) for item in items)
+    try:
+        tag_min = min(int(item.tag) for item in items)
+    except ValueError:
+        tag_min = None
 
     xy_coords = []
 
@@ -229,7 +232,12 @@ def stitch_map_items(items: list,
         ax.add_patch(rect)
 
         if label:
-            ax.text(pos_y, pos_x, str(int(item.tag) - tag_min), ha='center', va='center', color=color)
+            try:
+                item.tag = str(int(item.tag) - tag_min)
+            except ValueError:
+                tag = item.tag
+
+            ax.text(pos_y, pos_x, tag, ha='center', va='center', color=color)
 
         if markers:
             xy_coord = markers[i]
