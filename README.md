@@ -1,8 +1,9 @@
 ![build](https://github.com/stefsmeets/pyserialem/workflows/build/badge.svg)
+![PyPI](https://img.shields.io/pypi/v/pyserialem.svg?style=flat)
 
 # PySerialEM
 
-A small Python library to read and write [SerialEM][seriale] navigator files (`.nav`).
+A small Python library to read and write [SerialEM][serialem] navigator files (`.nav`).
 
 Install using `pip install pyserialem`.
 
