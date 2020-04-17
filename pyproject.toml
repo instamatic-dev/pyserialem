@@ -28,8 +28,6 @@ license = "GPL-3.0-only"
 include = [
     ".pre-commit-yaml",
     "LICENCE",
-    "pyproject.toml",
-    "README.md",
     "setup.py",
     "pyserialem/*.py",
     "data/nav.nav",
@@ -38,7 +36,7 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.6*"
+python = ">=3.6.1"
 matplotlib = ">=3.1.2"
 numpy = ">=1.17.3"
 mrcfile = "^1.1.2"
