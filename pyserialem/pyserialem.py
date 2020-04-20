@@ -730,7 +730,7 @@ def read_nav_file(fn: str, acquire_only: bool = False) -> list:
     block = []
     items = []
     tag = ''
-    drc = Path(fn.absolute().parent)
+    drc = Path(fn).absolute().parent
 
     f = open(fn, 'r')
     for line in f:
