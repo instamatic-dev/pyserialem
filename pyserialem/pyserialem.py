@@ -313,6 +313,7 @@ class NavItem:
 
         self._keys = tuple(d.keys())
 
+        self.DrawnID = 0
         self.Acquire = 0
         self.__dict__.update(d)
 
