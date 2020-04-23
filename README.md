@@ -16,15 +16,16 @@ The main use of `pyserialem` is to manipulate coordinates in a `.nav` file writt
 Reading a `.nav` file:
 
 ```python
-import pyserialem as pysem
+import pyserialem
+from pathlib import Path
 
-p = Path('C:/s/2020-02-05/') / 'nav.nav'
-items = pysem.read_nav_file(p)  # list
+p = Path('C:/path/to/data/') / 'nav.nav'
+items = pyserialem.read_nav_file(p)  # list
 ```
 You can set the `acquire_only` toggle to return only the items with the `Acquire` tag set:
 
 ```python
-items = pysem.read_nav_file(p, acquire_only=True)  # list
+items = pyserialem.read_nav_file(p, acquire_only=True)  # list
 ```
 
 This returns a `list` of `MapItem` and `NavItem`. A `MapItem` is associated with an image in the corresponding `.mrc` file, and a `NavItem` is a marker or point on that image.
@@ -135,7 +136,7 @@ assert new_pixel_coord == pixel_coord
 To write a new file:
 
 ```python
-pysem.write_nav_file('out.nav', map_item, *nav_item_group)
+pyserialem.write_nav_file('out.nav', map_item, *nav_item_group)
 ```
 
 Note the `*`. This function captures arguments in a list (`*args`, so they must be unpacked when supplied.
@@ -146,7 +147,7 @@ A basic stitching algorithm is available to get an overview of the location of a
 
 ```python
 map_items = [item for item in items if item.kind == 'Map']
-pysem.stitch_map_items(map_items)
+pyserialem.stitch_map_items(map_items)
 ```
 
 ## Mdoc files
@@ -154,8 +155,8 @@ pysem.stitch_map_items(map_items)
 There is also a simple function to read `.mdoc` files ([link][serialem_nav]). This returns a list of python objects where each key can be accessed as an attribute.
 
 ```python
-p = Path('C:/s/2020-02-05/') / 'gm.mrc.mdoc'
-mdoc = pysem.read_mdoc_file(p)
+p = Path('C:/path/to/data') / 'gm.mrc.mdoc'
+mdoc = pyserialem.read_mdoc_file(p)
 ```
 
 [src]: https://github.com/stefsmeets/pyserialem
