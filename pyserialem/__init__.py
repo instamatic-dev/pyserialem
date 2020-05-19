@@ -8,4 +8,4 @@ from .pyserialem import read_nav_file
 from .pyserialem import stitch_map_items
 from .pyserialem import write_nav_file
 
-__version__ = '0.1.3'
+__version__ = '0.2.0'
