@@ -11,7 +11,7 @@ keywords = [
 classifiers = [
 	"Development Status :: 4 - Beta",
 	"Intended Audience :: Developers",
-	"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+	"License :: OSI Approved :: BSD License",
     "Topic :: Software Development :: Libraries",
 	"Programming Language :: Python :: 3",
 	"Programming Language :: Python :: 3.6",
@@ -24,7 +24,7 @@ documentation = "http://github.com/stefsmeets/pyserialem"
 maintainers = ["Stef Smeets <s.smeets@tudelft.nl>"]
 authors = ["Stef Smeets <s.smeets@tudelft.nl>"]
 readme = "README.md"
-license = "GPL-3.0-only"
+license = "BSD-3-clause"
 include = [
     ".pre-commit-yaml",
     "LICENCE",

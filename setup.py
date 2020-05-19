@@ -21,32 +21,33 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='pyserialem',
-    version='0.1.0',
+    version='0.1.3',
     description='Python module to read/write SerialEM .nav files.',
-    python_requires='>=3.6*',
+    python_requires='>=3.6.1',
     project_urls={
         'documentation': 'http://github.com/stefsmeets/pyserialem',
         'homepage': 'http://github.com/stefsmeets/pyserialem',
         'repository': 'http://github.com/stefsmeets/pyserialem'},
     author='Stef Smeets',
     author_email='s.smeets@tudelft.nl',
-    license='GPL-3.0-only',
+    license='BSD-3-clause',
     keywords='serialem electron-microscopy navigator',
     classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Developers',
-            'License :: OSI Approved :: GPLv3 License',
+            'License :: OSI Approved :: BSD License',
             'Topic :: Software Development :: Libraries',
             'Programming Language :: Python :: 3',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8'],
-    packages=[],
+    packages=['pyserialem'],
     package_dir={
         '': '.'},
     package_data={},
     install_requires=[
         'matplotlib>=3.1.2',
+        'mrcfile==1.*,>=1.1.2',
         'numpy>=1.17.3'],
     extras_require={
         'dev': [
