@@ -1,7 +1,7 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stefsmeets/pyserialem/build)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyserialem)
-![PyPI](https://img.shields.io/pypi/v/pyserialem.svg?style=flat)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/pyserialem)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stefsmeets/pyserialem/build)](https://github.com/stefsmeets/pyserialem/actions)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyserialem)](https://pypi.org/project/pyserialem/)
+[![PyPI](https://img.shields.io/pypi/v/pyserialem.svg?style=flat)](https://pypi.org/project/pyserialem/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/pyserialem)](https://pypi.org/project/pyserialem/)
 
 # PySerialEM
 
