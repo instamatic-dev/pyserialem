@@ -1,5 +1,7 @@
-![build](https://github.com/stefsmeets/pyserialem/workflows/build/badge.svg)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stefsmeets/pyserialem/build)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyserialem)
 ![PyPI](https://img.shields.io/pypi/v/pyserialem.svg?style=flat)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/pyserialem)
 
 # PySerialEM
 
