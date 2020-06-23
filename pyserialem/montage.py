@@ -4,15 +4,24 @@ import lmfit
 import matplotlib.pyplot as plt
 import mrcfile
 import numpy as np
-from instamatic import config
-from instamatic.config import defaults
-from instamatic.image_utils import bin_ndarray
-from instamatic.imreg import translation
 from matplotlib import patches
 from scipy import ndimage
 from skimage import filters
 from skimage.registration import phase_cross_correlation
 from tqdm.auto import tqdm
+
+from .utils import bin_ndarray
+from .utils import translation
+
+
+DEFAULTS = {
+    'direction': 'downup',
+    'zigzag': True,
+    'flip': True,
+    'rot90': 3,
+    'flipud': True,
+    'fliplr': False,
+}
 
 
 def sorted_grid_indices(grid):
@@ -471,21 +480,23 @@ class Montage:
     def from_serialem_mrc(cls,
                           filename: str,
                           gridshape: tuple,
-                          direction: str = defaults.montage['from_serialem_mrc']['direction'],
-                          zigzag: bool = defaults.montage['from_serialem_mrc']['zigzag'],
-                          flip: bool = defaults.montage['from_serialem_mrc']['flip'],
-                          image_rot90: int = defaults.montage['from_serialem_mrc']['rot90'],
-                          image_flipud: bool = defaults.montage['from_serialem_mrc']['flipud'],
-                          image_fliplr: bool = defaults.montage['from_serialem_mrc']['fliplr'],
+                          direction: str = DEFAULTS['direction'],
+                          zigzag: bool = DEFAULTS['zigzag'],
+                          flip: bool = DEFAULTS['flip'],
+                          image_rot90: int = DEFAULTS['rot90'],
+                          image_flipud: bool = DEFAULTS['flipud'],
+                          image_fliplr: bool = DEFAULTS['fliplr'],
                           ):
         """Load a montage object from a SerialEM file image stack. The default
         parameters transform the images to data suitable for use with
-        Instamatic. It makes no further assumptions about the way the data were
-        collected.
+        `pyserialem.Montage`. It makes no further assumptions about the way the
+        data were collected.
 
-        The parameters image_rot90/image_flipud/image_fliplr manipulate the images in this order, so they can look the same as when collected with Instamatic. This is necessary to use the stage calibration, which is not specified in the SerialEM mrc file.
+        The parameters image_rot90/image_flipud/image_fliplr manipulate the images in this order,
+        so they can look the same as when collected with Instamatic. This is necessary to use
+        the stage calibration, which is not specified in the SerialEM mrc file.
 
-        Use .set_calibration(mode, mag) to set the correct stagematrix, or specify the one from SerialEM.
+        Use .set_stagematrix and .set_pixelsize to set the correct stagematrix and pixelsize.
 
         Parameters
         ----------
@@ -591,50 +602,13 @@ class Montage:
         self.gridspec.update(gridspec)
         self.grid = make_grid(**self.gridspec)
 
-    @classmethod
-    def from_montage_yaml(cls, filename: str = 'montage.yaml'):
-        """Load montage from a series of tiff files + `montage.yaml`)"""
-        import yaml
-        from instamatic.formats import read_tiff
+    def set_pixelsize(self, pixelsize: float):
+        """Set the pixelsize in Angstrom/pixel."""
+        self.pixelsize = pixelsize
 
-        p = Path(filename)
-        drc = p.parent
-
-        d = yaml.safe_load(open(p, 'r'))
-        fns = (drc / fn for fn in d['filenames'])
-
-        d['stagecoords'] = np.array(d['stagecoords'])
-        d['stagematrix'] = np.array(d['stagematrix'])
-
-        images = [read_tiff(fn)[0] for fn in fns]
-
-        gridspec = {k: v for k, v in d.items() if k in ('gridshape', 'direction', 'zigzag', 'flip')}
-
-        m = cls(images=images, gridspec=gridspec, **d)
-        m.update_gridspec(flip=not d['flip'])  # BUG: Work-around for gridspec madness
-        # Possibly related is that images are rotated 90 deg. in SerialEM mrc files
-
-        return m
-
-    def set_calibration(self, mode: str, magnification: int) -> None:
-        """Set the calibration parameters for the montage map. Sets the
-        pixelsize and stagematrix from the config files.
-
-        Parameters
-        ----------
-        mode : str
-            The TEM mode used, i.e. `lowmag`, `mag1`, `samag`
-        magnification : int
-            The magnification used
-        """
-        self.pixelsize = config.calibration[mode]['pixelsize'][magnification]
-
-        image_binning = self.image_binning
-        stagematrix = config.calibration[mode]['stagematrix'][magnification]
-        self.stagematrix = np.array(stagematrix).reshape(2, 2) * image_binning
-
-        self.mode = mode
-        self.magnification = magnification
+    def set_stagematrix(self, stagematrix: 'np.array[2,2]'):
+        """Set the stage matrix calibration matrix."""
+        self.stagematrix = stagematrix
 
     def get_difference_vector(self,
                               idx0: int,
@@ -709,8 +683,8 @@ class Montage:
             Segment the image using otsu's method before cross correlation. This improves
             the contrast for registration.
         method : str
-            Which cross correlation function to use `skimage`/`imreg`. `imreg` seems
-            to perform slightly better in this scenario.
+            Set to skimage to use the cross correlation function from scikit-image. Seems
+            to work better than the default in some cases.
         verbose : bool
             Be more verbose
 
@@ -772,13 +746,13 @@ class Montage:
                     strip1 = strip1 > t1
                     # print(f"Thresholds: {t1} {t1}")
 
-                if method == 'imreg':
-                    shift, fft = translation(strip0, strip1, return_fft=True)
-                    score = fft.max()
-                else:  # method = skimage.registration.phase_cross_correlation
+                if method == 'skimage':  # method = skimage.registration.phase_cross_correlation
                     shift, error, phasediff = phase_cross_correlation(strip0, strip1, return_error=True)
                     fft = np.ones_like(strip0)
                     score = 1 - error**0.5
+                else:
+                    shift, fft = translation(strip0, strip1, return_fft=True)
+                    score = fft.max()
 
                 if plot:
                     plot_fft(strip0, strip1, shift, fft, side0, side1)
@@ -1177,8 +1151,7 @@ class Montage:
         outfile : str
             Name of the image file.
         """
-        from instamatic.formats import write_tiff
-        write_tiff(outfile, self.stitched)
+        raise NotImplementedError
 
     def to_nav(self,
                fn: str = 'stitched.nav',
@@ -1524,11 +1497,6 @@ class Montage:
         self.feature_coords_image = imagecoords
 
         return stagecoords, imagecoords
-
-    def to_browser(self):
-        from instamatic.browser import Browser
-        browser = Browser(self)
-        return browser
 
 
 if __name__ == '__main__':
