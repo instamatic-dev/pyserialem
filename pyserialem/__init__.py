@@ -6,4 +6,4 @@ from .reader import read_nav_file
 from .reader import stitch_map_items
 from .reader import write_nav_file
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'

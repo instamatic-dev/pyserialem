@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='pyserialem',
-    version='0.2.0',
+    version='0.3.0',
     description='Python module to read/write SerialEM .nav files.',
     python_requires='>=3.6.1',
     project_urls={
@@ -46,9 +46,13 @@ setup(
         '': '.'},
     package_data={},
     install_requires=[
+        'lmfit==1.*,>=1.0.1',
         'matplotlib>=3.1.2',
         'mrcfile==1.*,>=1.1.2',
-        'numpy>=1.17.3'],
+        'numpy>=1.17.3',
+        'scikit-image==0.*,>=0.17.2',
+        'scipy==1.*,>=1.5.0',
+        'tqdm==4.*,>=4.46.1'],
     extras_require={
         'dev': [
             'check-manifest',

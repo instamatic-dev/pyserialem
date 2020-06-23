@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "pyserialem"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python module to read/write SerialEM .nav files."
 keywords = [
 	"serialem",
@@ -40,6 +40,11 @@ python = ">=3.6.1"
 matplotlib = ">=3.1.2"
 numpy = ">=1.17.3"
 mrcfile = "^1.1.2"
+lmfit = "^1.0.1"
+scikit-image = "^0.17.2"
+tqdm = "^4.46.1"
+scipy = "^1.5.0"
+
 
 [tool.poetry.dev-dependencies]
 check-manifest = "*"
