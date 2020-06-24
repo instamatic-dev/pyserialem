@@ -603,12 +603,34 @@ class Montage:
         self.grid = make_grid(**self.gridspec)
 
     def set_pixelsize(self, pixelsize: float):
-        """Set the pixelsize in Angstrom/pixel."""
-        self.pixelsize = pixelsize
+        """Set the unbinned pixelsize in nanometer/pixel."""
+        self.pixelsize = pixelsize * self.image_binning
 
     def set_stagematrix(self, stagematrix: 'np.array[2,2]'):
-        """Set the stage matrix calibration matrix."""
-        self.stagematrix = stagematrix
+        """Set the unbinned stage matrix calibration matrix."""
+        self.stagematrix = stagematrix * self.image_binning
+
+    def set_stagematrix_from_serialem_calib(self, StageToCameraMatrix: str):
+        """Set the stagematrix directly from the SerialEM calibration.
+
+        Copy the line from `SerialEMcalibrations.txt`
+
+        Looks something like:
+        `StageToCameraMatrix 10 0 8.797544 0.052175 0.239726 8.460119   0.741238   100`
+
+        Where the last number is the magnification. Also estimates the `pixelsize`.
+        """
+        inp = StageToCameraMatrix.split()[3:7]
+        values = [float(val) for val in inp]
+        stagematrix_inv = np.array(values).reshape(2, 2)
+        stagematrix = np.linalg.inv(stagematrix_inv) * 1000
+
+        self.set_stagematrix(stagematrix)
+
+        pixelsize = np.abs(stagematrix.trace() / 2)  # estimate pixelsize from stagematrix
+        self.set_pixelsize(pixelsize)
+
+        return self.stagematrix
 
     def get_difference_vector(self,
                               idx0: int,
