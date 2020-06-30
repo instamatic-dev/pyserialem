@@ -5,7 +5,7 @@
 
 # PySerialEM
 
-A small Python library to read and write [SerialEM][serialem] navigator files (`.nav`).
+A small Python library to read and write [SerialEM][serialem] navigator files (`.nav`), and process grid maps.
 
 Install using `pip install pyserialem`.
 
@@ -151,6 +151,8 @@ A basic stitching algorithm is available to get an overview of the location of a
 map_items = [item for item in items if item.kind == 'Map']
 pyserialem.stitch_map_items(map_items)
 ```
+
+For more advanced stitching and montaging, use the `pyserialem.montage` module. A [demo notebook](demos/montage_processing_serialem.ipynb) is available to demonstrate its usage.
 
 ## Mdoc files
 
