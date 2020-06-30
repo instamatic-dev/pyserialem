@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from pyserialem import bin_ndarray
+from pyserialem.utils import bin_ndarray
 
 
 def test_binning():
