@@ -1072,6 +1072,9 @@ class Montage:
         images = self.images
         nx, ny = grid.shape
         res_x, res_y = self.image_shape
+        n_images = len(images)
+
+        assert nx * ny == n_images, f'Number of images ({n_images}) does not match number of grid shape ({nx}x{ny})!'
 
         c = coords.astype(int)
         stitched_x, stitched_y = c.max(axis=0) - c.min(axis=0)
