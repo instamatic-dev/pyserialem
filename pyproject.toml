@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "pyserialem"
-version = "0.3.0"
+version = "0.3.1"
 description = "Python module to read/write SerialEM .nav files."
 keywords = [
 	"serialem",
@@ -54,10 +54,6 @@ pytest-cov = "==2.*,>=2.8.1"
 
 [tool.poetry.urls]
 "Bug Reports" = "https://github.com/stefsmeets/pyserialem/issues"
-
-
-
-
 
 [tool.dephell.main]
 from = {format = "poetry", path = "pyproject.toml"}
