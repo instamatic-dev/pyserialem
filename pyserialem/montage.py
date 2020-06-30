@@ -1411,6 +1411,7 @@ class Montage:
                    diameter: float = None,
                    tolerance: float = 0.1,
                    pixelsize: float = None,
+                   threshold: int = None,
                    plot: bool = False,
                    ) -> tuple:
         """Find grid holes in the montage image.
@@ -1424,6 +1425,9 @@ class Montage:
             Tolerance in % how far the calculate diameter can be off
         pixelsize : float
             Unbinned tile pixelsize in nanometers
+        threshold: int
+            Threshold to use for segmentation. By default the `otsu` method
+            is used to find a suitable threshold.
         plot : bool
             Plot the segmentation results and coordinates using Matplotlib
 
@@ -1438,9 +1442,10 @@ class Montage:
 
         stitched = self.stitched
 
-        thresh = filters.threshold_otsu(stitched)
+        if not threshold:
+            threshold = filters.threshold_otsu(stitched)
         selem = morphology.disk(10)
-        seg = morphology.binary_closing(stitched > thresh, selem=selem)
+        seg = morphology.binary_closing(stitched > threshold, selem=selem)
 
         labeled, _ = ndimage.label(seg)
         props = regionprops(labeled)
@@ -1482,7 +1487,7 @@ class Montage:
         if plot:
             fig, (ax0, ax1, ax2) = plt.subplots(ncols=3, figsize=(12, 4))
 
-            ax0.set_title('Segmentation')
+            ax0.set_title(f'Segmentation (z>{threshold:.0f})')
             ax0.imshow(seg)
 
             ax1.set_title('Image coords')
