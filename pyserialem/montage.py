@@ -1305,7 +1305,7 @@ class Montage:
         stage_coords = np.array([f(px_coord, stagematrix=stagematrix) for px_coord in pixelcoords])
 
         if plot:
-            plot_x, plot_y = px_coords.T
+            plot_x, plot_y = stage_coords.T
             plt.scatter(plot_x, plot_y, color='red', marker='.')
             plt.title(f'Stage coordinates')
             plt.xlabel('X (nm)')
