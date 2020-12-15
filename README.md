@@ -9,8 +9,6 @@ A small Python library to read and write [SerialEM][serialem] navigator files (`
 
 Install using `pip install pyserialem`.
 
-[The source for this project is available here][src].
-
 # Usage
 
 The main use of `pyserialem` is to manipulate coordinates in a `.nav` file written by SerialEM ([specification][serialem_nav]).
