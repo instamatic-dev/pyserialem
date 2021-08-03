@@ -1,7 +1,7 @@
 [tool]
 [tool.poetry]
 name = "pyserialem"
-version = "0.3.1"
+version = "0.3.2"
 description = "Python module to read/write SerialEM .nav files."
 keywords = [
 	"serialem",
@@ -39,18 +39,18 @@ include = [
 python = ">=3.6.1"
 matplotlib = ">=3.1.2"
 numpy = ">=1.17.3"
-mrcfile = "^1.1.2"
-lmfit = "^1.0.1"
-scikit-image = "^0.17.2"
-tqdm = "^4.46.1"
-scipy = "^1.5.0"
+mrcfile = ">=1.1.2"
+lmfit = ">=1.0.1"
+scikit-image = ">=0.17.2"
+tqdm = ">=4.46.1"
+scipy = ">=1.5.0"
 
 
 [tool.poetry.dev-dependencies]
 check-manifest = "*"
 pre-commit = "*"
-pytest = "==5.*,>=5.4.1"
-pytest-cov = "==2.*,>=2.8.1"
+pytest = ">=5.4.1"
+pytest-cov = ">=2.8.1"
 
 [tool.poetry.urls]
 "Bug Reports" = "https://github.com/stefsmeets/pyserialem/issues"
@@ -61,5 +61,5 @@ to = {format = "setuppy", path = "setup.py"}
 versioning = "semver"
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry"]
 build-backend = "poetry.masonry.api"
