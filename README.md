@@ -1,4 +1,4 @@
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/stefsmeets/pyserialem/build)](https://github.com/stefsmeets/pyserialem/actions)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/instamatic-dev/pyserialem/build)](https://github.com/instamatic-dev/pyserialem/actions)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyserialem)](https://pypi.org/project/pyserialem/)
 [![PyPI](https://img.shields.io/pypi/v/pyserialem.svg?style=flat)](https://pypi.org/project/pyserialem/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/pyserialem)](https://pypi.org/project/pyserialem/)
@@ -8,8 +8,6 @@
 A small Python library to read and write [SerialEM][serialem] navigator files (`.nav`), and process grid maps.
 
 Install using `pip install pyserialem`.
-
-[The source for this project is available here][src].
 
 # Usage
 
