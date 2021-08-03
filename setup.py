@@ -21,7 +21,7 @@ if os.path.exists(readme_path):
 setup(
     long_description=readme,
     name='pyserialem',
-    version='0.3.1',
+    version='0.3.2',
     description='Python module to read/write SerialEM .nav files.',
     python_requires='>=3.6.1',
     project_urls={
@@ -29,7 +29,7 @@ setup(
         'homepage': 'http://github.com/stefsmeets/pyserialem',
         'repository': 'http://github.com/stefsmeets/pyserialem'},
     author='Stef Smeets',
-    author_email='s.smeets@tudelft.nl',
+    author_email='s.smeets@esciencecenter.nl',
     license='BSD-3-clause',
     keywords='serialem electron-microscopy navigator',
     classifiers=[
@@ -46,13 +46,13 @@ setup(
         '': '.'},
     package_data={},
     install_requires=[
-        'lmfit==1.*,>=1.0.1',
+        'lmfit>=1.0.1',
         'matplotlib>=3.1.2',
-        'mrcfile==1.*,>=1.1.2',
+        'mrcfile>=1.1.2',
         'numpy>=1.17.3',
-        'scikit-image==0.*,>=0.17.2',
-        'scipy==1.*,>=1.5.0',
-        'tqdm==4.*,>=4.46.1'],
+        'scikit-image>=0.17.2',
+        'scipy>=1.5.0',
+        'tqdm>=4.46.1'],
     extras_require={
         'dev': [
             'check-manifest',
