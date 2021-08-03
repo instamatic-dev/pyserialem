@@ -19,11 +19,11 @@ classifiers = [
 	"Programming Language :: Python :: 3.8",
 	"Programming Language :: Python :: 3.9",
 ]
-homepage = "http://github.com/stefsmeets/pyserialem"
-repository = "http://github.com/stefsmeets/pyserialem"
-documentation = "http://github.com/stefsmeets/pyserialem"
-maintainers = ["Stef Smeets <s.smeets@tudelft.nl>"]
-authors = ["Stef Smeets <s.smeets@tudelft.nl>"]
+homepage = "http://github.com/instamatic-dev/pyserialem"
+repository = "http://github.com/instamatic-dev/pyserialem"
+documentation = "http://github.com/instamatic-dev/pyserialem"
+maintainers = ["Stef Smeets <s.smeets@esciencecenter.nl>"]
+authors = ["Stef Smeets <s.smeets@esciencecenter.nl>"]
 readme = "README.md"
 license = "BSD-3-clause"
 include = [
@@ -54,7 +54,7 @@ pytest = ">=5.4.1"
 pytest-cov = ">=2.8.1"
 
 [tool.poetry.urls]
-"Bug Reports" = "https://github.com/stefsmeets/pyserialem/issues"
+"Bug Reports" = "https://github.com/instamatic-dev/pyserialem/issues"
 
 [tool.dephell.main]
 from = {format = "poetry", path = "pyproject.toml"}

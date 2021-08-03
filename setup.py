@@ -25,9 +25,9 @@ setup(
     description='Python module to read/write SerialEM .nav files.',
     python_requires='>=3.6.1',
     project_urls={
-        'documentation': 'http://github.com/stefsmeets/pyserialem',
-        'homepage': 'http://github.com/stefsmeets/pyserialem',
-        'repository': 'http://github.com/stefsmeets/pyserialem'},
+        'documentation': 'http://github.com/instamatic-dev/pyserialem',
+        'homepage': 'http://github.com/instamatic-dev/pyserialem',
+        'repository': 'http://github.com/instamatic-dev/pyserialem'},
     author='Stef Smeets',
     author_email='s.smeets@esciencecenter.nl',
     license='BSD-3-clause',

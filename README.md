@@ -161,6 +161,6 @@ p = Path('C:/path/to/data') / 'gm.mrc.mdoc'
 mdoc = pyserialem.read_mdoc_file(p)
 ```
 
-[src]: https://github.com/stefsmeets/pyserialem
+[src]: https://github.com/instamatic-dev/pyserialem
 [serialem]: https://bio3d.colorado.edu/SerialEM/
 [serialem_nav]: https://bio3d.colorado.edu/SerialEM/hlp/html/about_formats.htm
